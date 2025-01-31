@@ -7,6 +7,7 @@ import DashboardContent from './DashboardContent';
 import EntriesContent from './EntriesContent';
 import DriverDashboard from './DriverDashboard';
 import MaintenanceHistory from './MaintenanceHistory';
+import DriverReportForm from './DriverReportForm';  // Certifique-se de que esse componente exista
 
 type NavItem = {
   name: string;
@@ -36,6 +37,7 @@ function App() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 rounded-lg bg-white shadow-md"
+            aria-label="Abrir menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -47,6 +49,7 @@ function App() {
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
             ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
             bg-white border-r border-gray-200`}
+          aria-hidden={!isSidebarOpen}
         >
           <div className="h-full px-3 py-4 flex flex-col">
             <div className="flex items-center justify-between mb-8 px-2">
@@ -63,6 +66,7 @@ function App() {
                   to={item.path}
                   className="w-full flex items-center px-4 py-3 text-sm rounded-lg border-l-4
                     text-gray-700 hover:bg-gray-50 hover:border-blue-600"
+                  aria-label={`Ir para ${item.name}`}
                 >
                   {item.icon}
                   <span className="ml-3">{item.name}</span>
@@ -87,10 +91,10 @@ function App() {
                   />
                   <Search className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
                 </div>
-                <button className="p-2 rounded-lg hover:bg-gray-100">
+                <button className="p-2 rounded-lg hover:bg-gray-100" aria-label="Notificações">
                   <Bell className="w-6 h-6 text-gray-600" />
                 </button>
-                <button className="p-2 rounded-lg hover:bg-gray-100">
+                <button className="p-2 rounded-lg hover:bg-gray-100" aria-label="Perfil do Usuário">
                   <User className="w-6 h-6 text-gray-600" />
                 </button>
               </div>

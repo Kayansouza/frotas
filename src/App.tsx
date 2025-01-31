@@ -16,8 +16,11 @@ import EntriesContent from './components/EntriesContent';
 import DriverDashboard from './components/DriverDashboard';
 import MaintenanceHistory from './components/MaintenanceHistory';
 import DriverReportForm from './components/DriverReportForm'; // Importando o DriverReportForm
-import SettingsPage from './components/SettingsPage';
-import Rastreamento from './components/Rastreamento'; // Importando o componente Rastreamento
+import Rastreamento from './components/Rastreamento'; // Importando o Rastreamento
+import Relatorio from './components/Relatorio'; 
+import Singup from './components/Singup'; 
+
+
 
 type NavItem = {
   name: string;
@@ -52,9 +55,13 @@ function App() {
       case 'Relatório do Motorista': // Novo caso para o relatório do motorista
         return <DriverReportForm />;
         case 'Notificações':
-          return <SettingsPage />;
+          return <Settings />;
           case 'Rastreamento':
           return <Rastreamento />;
+          case 'Relatórios':
+            return <Relatorio />;
+            case 'Cadastro':
+              return <Singup />;
       default:
         return <div>Conteúdo não disponível.</div>;
     }
