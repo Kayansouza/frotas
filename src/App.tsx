@@ -1,3 +1,4 @@
+// App.tsx
 import React, { useState } from 'react';
 import {
   Menu,
@@ -11,22 +12,25 @@ import {
   X,
   Wrench,
 } from 'lucide-react';
+
+// Importação dos componentes de conteúdo
 import DashboardContent from './components/DashboardContent';
 import EntriesContent from './components/EntriesContent';
 import DriverDashboard from './components/DriverDashboard';
 import MaintenanceHistory from './components/MaintenanceHistory';
-import DriverReportForm from './components/DriverReportForm'; // Importando o DriverReportForm
-import Rastreamento from './components/Rastreamento'; // Importando o Rastreamento
-import Relatorio from './components/Relatorio'; 
-import Singup from './components/Singup'; 
+import DriverReportForm from './components/DriverReportForm';
+import Relatorio from './components/Relatorio';
+// Caso você tenha um componente para "Configurações", importe-o aqui; caso contrário, usaremos um placeholder.
+ 
+// Outros componentes que não estão vinculados ao menu foram removidos para manter a consistência
 
-
-
+// Definição do tipo para os itens de navegação
 type NavItem = {
   name: string;
   icon: React.ReactNode;
 };
 
+// Itens do menu (sidebar)
 const navItems: NavItem[] = [
   { name: 'Resumo Geral', icon: <BarChart3 className="w-5 h-5" /> },
   { name: 'Entrada/Saída', icon: <Truck className="w-5 h-5" /> },
@@ -34,14 +38,16 @@ const navItems: NavItem[] = [
   { name: 'Manutenção', icon: <Wrench className="w-5 h-5" /> },
   { name: 'Relatórios', icon: <FileText className="w-5 h-5" /> },
   { name: 'Configurações', icon: <Settings className="w-5 h-5" /> },
-  { name: 'Relatório do Motorista', icon: <FileText className="w-5 h-5" /> }, // Novo item no menu
+  { name: 'Relatório do Motorista', icon: <FileText className="w-5 h-5" /> },
 ];
 
 function App() {
+  // Estados para controlar a visibilidade da sidebar, o menu mobile e a aba ativa
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('Resumo Geral');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Renderiza o conteúdo com base na aba ativa
   const renderContent = () => {
     switch (activeTab) {
       case 'Resumo Geral':
@@ -52,16 +58,13 @@ function App() {
         return <DriverDashboard />;
       case 'Manutenção':
         return <MaintenanceHistory />;
-      case 'Relatório do Motorista': // Novo caso para o relatório do motorista
+      case 'Relatórios':
+        return <Relatorio />;
+      case 'Configurações':
+        // Caso possua um componente para Configurações, importe-o e utilize-o aqui.
+        return <div>Configurações (conteúdo do componente a ser desenvolvido)</div>;
+      case 'Relatório do Motorista':
         return <DriverReportForm />;
-        case 'Notificações':
-          return <Settings />;
-          case 'Rastreamento':
-          return <Rastreamento />;
-          case 'Relatórios':
-            return <Relatorio />;
-            case 'Cadastro':
-              return <Singup />;
       default:
         return <div>Conteúdo não disponível.</div>;
     }
@@ -95,6 +98,7 @@ function App() {
             </div>
           </div>
 
+          {/* Itens de Navegação */}
           <nav className="flex-1 space-y-1">
             {navItems.map((item) => (
               <button
@@ -114,9 +118,7 @@ function App() {
       </aside>
 
       {/* Conteúdo Principal */}
-      <div
-        className={`lg:ml-64 transition-all duration-300 ${isSidebarOpen || isMobileMenuOpen ? '' : 'ml-0'}`}
-      >
+      <div className={`lg:ml-64 transition-all duration-300 ${isSidebarOpen || isMobileMenuOpen ? '' : 'ml-0'}`}>
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-4 py-4">
           <div className="flex items-center justify-between">

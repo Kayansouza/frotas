@@ -53,7 +53,79 @@ const recentActivity = [
     descanso: '2h',
     bemEstar: 'Bom'
   },
-  // ... outros registros
+  { 
+    id: 2, 
+    truck: 'DFG-1234', 
+    driver: 'Manoel da Silva', 
+    type: 'Entrada', 
+    time: '09:30',
+    location: 'Curitiba, PR',
+    status: 'Em viagem',
+    horasDirigidas: '12h30',
+    descanso: '2h',
+    bemEstar: 'Crítico'
+  },
+  { 
+    id: 3, 
+    truck: 'FHG-1029', 
+    driver: 'Mariana da Silva', 
+    type: 'Entrada', 
+    time: '09:30',
+    location: 'Londrina, PR',
+    status: 'Chegada',
+    horasDirigidas: '12h30',
+    descanso: '2h',
+    bemEstar: 'Crítico'
+  },
+  { 
+    id: 4, 
+    truck: 'DFG-7534', 
+    driver: 'Milena Do Socorro', 
+    type: 'Saída', 
+    time: '09:30',
+    location: 'Rio de Janeiro, RJ',
+    status: 'Chegada',
+    horasDirigidas: '23h30',
+    descanso: '2h',
+    bemEstar: 'Razoável'
+  },
+  { 
+    id: 5, 
+    truck: 'DFG-1280', 
+    driver: 'Douglas Silva', 
+    type: 'Entrada', 
+    time: '09:30',
+    location: 'Curitiba, PR',
+    status: 'Chegada',
+    horasDirigidas: '14h00',
+    descanso: '2h',
+    bemEstar: 'Bom'
+  },
+  { 
+    id: 6, 
+    truck: 'DFG-1234', 
+    driver: 'Manoel Do Nascimento', 
+    type: 'Entrada', 
+    time: '09:30',
+    location: 'Curitiba, PR',
+    status: 'Em viagem',
+    horasDirigidas: '12h30',
+    descanso: '2h',
+    bemEstar: 'Crítico'
+  },
+  { 
+    id: 7, 
+    truck: 'MRA-1910', 
+    driver: 'Luiz Santana', 
+    type: 'Entrada', 
+    time: '09:30',
+    location: 'Curitiba, PR',
+    status: 'Em viagem',
+    horasDirigidas: '12h30',
+    descanso: '2h',
+    bemEstar: 'Crítico'
+  },
+  // ... outros registros, se necessário
 ];
 
 const alertas = [
@@ -67,8 +139,26 @@ const alertas = [
     id: 2,
     tipo: 'Descanso',
     mensagem: 'Motorista próximo ao limite de horas - João Silva',
-    urgencia: 'média'
-  }
+    urgencia: 'media'
+  }, 
+  {
+    id: 4,
+    tipo: 'Troca de Pneu',
+    mensagem: 'Motorista com o pneu do lado esquerdo furado - Douglas Silva',
+    urgencia: 'alta'
+  }, 
+  {
+    id: 5,
+    tipo: 'Troca de Óleo',
+    mensagem: 'Motorista precisa trocar o óleo - Luiz Santana',
+    urgencia: 'razoavel'
+  }, 
+  {
+    id: 6,
+    tipo: 'Horário de Almoço',
+    mensagem: 'Motorista no horário de almoço - Manoel do Nascimento',
+    urgencia: 'media'
+  }, 
 ];
 
 function DashboardContent() {
@@ -115,9 +205,11 @@ function DashboardContent() {
               }`}
             >
               <div className="flex items-start">
-                <AlertCircle className={`w-5 h-5 ${
-                  alerta.urgencia === 'alta' ? 'text-red-600' : 'text-yellow-600'
-                }`} />
+                <AlertCircle
+                  className={`w-5 h-5 ${
+                    alerta.urgencia === 'alta' ? 'text-red-600' : 'text-yellow-600'
+                  }`}
+                />
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">{alerta.tipo}</p>
                   <p className="mt-1 text-sm text-gray-600">{alerta.mensagem}</p>
@@ -130,6 +222,7 @@ function DashboardContent() {
 
       {/* Filtros */}
       <div className="flex flex-wrap gap-4 mb-6">
+        {/* Filtro de Status */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Status
@@ -143,8 +236,11 @@ function DashboardContent() {
             <option value="em_viagem">Em Viagem</option>
             <option value="em_descanso">Em Descanso</option>
             <option value="manutencao">Em Manutenção</option>
+            <option value="almoco">Em Almoço</option>
           </select>
         </div>
+
+        {/* Filtro de Localização */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Localização
@@ -158,6 +254,14 @@ function DashboardContent() {
             <option value="sp">São Paulo</option>
             <option value="rj">Rio de Janeiro</option>
             <option value="mg">Minas Gerais</option>
+            <option value="df">Brasília</option>
+            <option value="ba">Salvador</option>
+            <option value="ce">Fortaleza</option>
+            <option value="bh">Belo Horizonte</option>
+            <option value="am">Manaus</option>
+            <option value="pr">Curitiba</option>
+            <option value="pe">Recife</option>
+            <option value="go">Goiânia</option>
           </select>
         </div>
       </div>
@@ -165,7 +269,9 @@ function DashboardContent() {
       {/* Monitoramento em Tempo Real */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">
         <div className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Monitoramento em Tempo Real</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Monitoramento em Tempo Real
+          </h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
